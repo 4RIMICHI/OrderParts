@@ -11,7 +11,7 @@ const Login: React.FC = () => {
 
   return (
     <div>
-      <h2>ログイン</h2>
+      <h2>ログイン画面</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">メールアドレス:</label>

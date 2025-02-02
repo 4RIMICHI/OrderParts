@@ -1,0 +1,21 @@
+.parts-search {
+  padding: 20px;
+  text-align: left; /* 左揃えにする */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.parts-list {
+  margin-top: 20px;
+}
+
+.parts-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.parts-list li {
+  margin-bottom: 5px;
+}

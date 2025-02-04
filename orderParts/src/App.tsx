@@ -4,12 +4,14 @@ import Login from './components/Login';
 import Register from './components/Register';
 import PartsSearch from './components/PartsSearch';
 import Header from './components/Header';
+import Breadcrumbs from './components/Breadcrumbs';
 import './App.css';
 
 function App() {
   return (
     <Router>
       <Header />
+      <Breadcrumbs />
       <div className="content">
         <Routes>
           <Route path="/" element={<Home />} />

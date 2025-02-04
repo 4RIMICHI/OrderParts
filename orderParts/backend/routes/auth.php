@@ -36,35 +36,37 @@ $app = AppFactory::create();
 
 require __DIR__ . '/../routes/auth.php';
 
-$app->post('/register', function (Request $request, Response $response) {
-    $data = $request->getParsedBody();
-    $email = $data['email'];
-    $password = password_hash($data['password'], PASSWORD_DEFAULT);
+return function (App $app) {
+    $app->post('/register', function (Request $request, Response $response) {
+        $data = $request->getParsedBody();
+        $email = $data['email'];
+        $password = password_hash($data['password'], PASSWORD_DEFAULT);
 
-    try {
-        DB::table('users')->insert([
-            'email' => $email,
-            'password' => $password
-        ]);
-        return $response->withJson(['message' => 'User registered successfully'], 201);
-    } catch (\Exception $e) {
-        return $response->withJson(['error' => 'Error registering user'], 500);
-    }
-});
+        try {
+            DB::table('users')->insert([
+                'email' => $email,
+                'password' => $password
+            ]);
+            return $response->withJson(['message' => 'User registered successfully'], 201);
+        } catch (\Exception $e) {
+            return $response->withJson(['error' => 'Error registering user'], 500);
+        }
+    });
 
-$app->post('/login', function (Request $request, Response $response) {
-    $data = $request->getParsedBody();
-    $email = $data['email'];
-    $password = $data['password'];
+    $app->post('/login', function (Request $request, Response $response) {
+        $data = $request->getParsedBody();
+        $email = $data['email'];
+        $password = $data['password'];
 
-    $user = DB::table('users')->where('email', $email)->first();
+        $user = DB::table('users')->where('email', $email)->first();
 
-    if ($user && password_verify($password, $user->password)) {
-        // トークン生成などの処理を追加
-        return $response->withJson(['message' => 'Login successful']);
-    } else {
-        return $response->withJson(['error' => 'Invalid credentials'], 400);
-    }
-});
+        if ($user && password_verify($password, $user->password)) {
+            // トークン生成などの処理を追加
+            return $response->withJson(['message' => 'Login successful']);
+        } else {
+            return $response->withJson(['error' => 'Invalid credentials'], 400);
+        }
+    });
+};
 
 $app->run();

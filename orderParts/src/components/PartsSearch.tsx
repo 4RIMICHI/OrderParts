@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './PartsSearch.css';
 
-export const PartsSearch: React.FC = () => {
+const PartsSearch: React.FC = () => {
   const [selectedRadio, setSelectedRadio] = useState('');
   const [selectedCheckbox, setSelectedCheckbox] = useState(false);
   const [selectedDropdown, setSelectedDropdown] = useState('');
-  const [selectedListbox, setSelectedListbox] = useState('');
+  const [selectedListbox, setSelectedListbox] = useState<string[]>([]);
   const [selectedCombobox, setSelectedCombobox] = useState('');
   const [partsList, setPartsList] = useState<string[]>([]);
 
@@ -14,10 +15,21 @@ export const PartsSearch: React.FC = () => {
     setPartsList(['部品1', '部品2', '部品3']);
   };
 
+  const handleListboxChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const options = e.target.options;
+    const selectedValues: string[] = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedValues.push(options[i].value);
+      }
+    }
+    setSelectedListbox(selectedValues);
+  };
+
   return (
-    <div>
+    <div className="parts-search">
       <h2>部品検索</h2>
-      <div>
+      <div className="form-group">
         <label>
           <input
             type="radio"
@@ -29,7 +41,7 @@ export const PartsSearch: React.FC = () => {
           ラジオボタン
         </label>
       </div>
-      <div>
+      <div className="form-group">
         <label>
           <input
             type="checkbox"
@@ -39,7 +51,7 @@ export const PartsSearch: React.FC = () => {
           チェックボックス
         </label>
       </div>
-      <div>
+      <div className="form-group">
         <label>
           abc:
           <select value={selectedDropdown} onChange={(e) => setSelectedDropdown(e.target.value)}>
@@ -48,17 +60,17 @@ export const PartsSearch: React.FC = () => {
           </select>
         </label>
       </div>
-      <div>
+      <div className="form-group">
         <label>
           abc:
-          <select size={3} value={selectedListbox} onChange={(e) => setSelectedListbox(e.target.value)}>
+          <select multiple size={3} value={selectedListbox} onChange={handleListboxChange}>
             <option value="option1">Option 1</option>
             <option value="option2">Option 2</option>
             <option value="option3">Option 3</option>
           </select>
         </label>
       </div>
-      <div>
+      <div className="form-group">
         <label>
           abc:
           <input
@@ -73,10 +85,10 @@ export const PartsSearch: React.FC = () => {
           </datalist>
         </label>
       </div>
-      <div>
+      <div className="form-group">
         <button onClick={handleSearch}>検索</button>
       </div>
-      <div>
+      <div className="parts-list">
         <h3>部品リスト</h3>
         <ul>
           {partsList.map((part, index) => (
@@ -144,47 +156,5 @@ export const Register: React.FC = () => {
   );
 };
 
-const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await axios.post('http://localhost:5000/api/auth/login', { email, password });
-      alert('Login successful');
-      // トークンを保存するなどの処理を追加
-    } catch (error) {
-      alert('Error logging in');
-    }
-  };
-
-  return (
-    <div>
-      <h2>ログイン</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">メールアドレス:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">パスワード:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">ログイン</button>
-      </form>
-    </div>
-  );
-};
-
-export default Login;
+export default PartsSearch;

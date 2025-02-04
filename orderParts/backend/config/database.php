@@ -17,7 +17,7 @@ $capsule->addConnection([
     'driver'    => 'pgsql',
     'host'      => '127.0.0.1',
     'database'  => 'myapp',
-    'username'  => 'your_username',
+    'username'  => 'myapp',
     'password'  => 'your_password',
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',

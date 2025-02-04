@@ -49,7 +49,7 @@ return function (App $app) {
             ]);
             return $response->withJson(['message' => 'User registered successfully'], 201);
         } catch (\Exception $e) {
-            return $response->withJson(['error' => 'Error registering user'], 500);
+            return $response->withJson(['error' => 'Error registering user', 'details' => $e->getMessage()], 500);
         }
     });
 

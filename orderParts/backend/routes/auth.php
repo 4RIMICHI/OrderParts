@@ -49,6 +49,7 @@ return function (App $app) {
             ]);
             return $response->withJson(['message' => 'User registered successfully'], 201);
         } catch (\Exception $e) {
+            error_log($e->getMessage()); // エラーログに記録
             return $response->withJson(['error' => 'Error registering user', 'details' => $e->getMessage()], 500);
         }
     });

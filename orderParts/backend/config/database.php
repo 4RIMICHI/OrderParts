@@ -18,7 +18,7 @@ $capsule->addConnection([
     'host'      => '127.0.0.1',
     'database'  => 'myapp',
     'username'  => 'myapp',
-    'password'  => 'your_password',
+    'password'  => '439843984398Ab',
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix'    => '',

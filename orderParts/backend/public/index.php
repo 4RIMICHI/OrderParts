@@ -8,7 +8,7 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
-// 既存のコード
+// 既存のコード     
 $app = AppFactory::create();
 
 require __DIR__ . '/../config/database.php';
